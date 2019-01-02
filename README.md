@@ -1,32 +1,43 @@
-# retriever
 
-![golden retriever with ball](http://i.imgur.com/mdGD3ZO.jpg)
+<div align="center">
+
+# `envar`
+
+<!-- LOGO Goes Here -->
+
+</div>
 
 ## Why?
 
-Often in our apps we want to fetch content/resources from other web services
-the same way a person would by clicking on links in a web browser.
-We can do this using a standard `http.request` (*node.js core*), but many
-services don't like it when developers make requests for their content
-[***programatically***](http://english.stackexchange.com/questions/12245)
-(e.g. Facebook wants you to use their API so they know who is making
-  the requests...)
-Sometimes we *want* retrieve content *anonymously*.
-
+We needed a way of checking that environment variables were defined 
+and improving the developer experience when they are not.
 ## What?
 
-Retrieve the content for a given
-[**url**](http://en.wikipedia.org/wiki/Uniform_resource_locator)
+**`envar`** is our solution to a very specific problem:
+the developer experience when a required environment variable is undefined. 
+
 
 ## How?
 
-. . .
+### Installation
+
+Install the package
+by adding `envar` to your list of dependencies in your `mix.exs` file:
+
+```elixir
+def deps do
+  [
+    {:envar, "~> 0.1.0"}
+  ]
+end
+```
+
 
 
 ## Research
 
-### Existing Modules we Learned From
+We created this module after doing
+a comprehensive search of the `Elixir` (Hex.pm)
+ecosystem, see:
+[dwyl/learn-environment-variables/issues/18](https://github.com/dwyl/learn-environment-variables/issues/18)
 
-+ **request**: https://www.npmjs.com/package/request
-(mature but *way too many features/dependencies*)
-+ **fetch**: https://www.npmjs.com/package/fetch (good but *no tests*)
