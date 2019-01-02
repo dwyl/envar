@@ -3,7 +3,7 @@
 
 # `envar`
 
-<!-- LOGO Goes Here -->
+<!-- LOGO Goes Here #HelpWanted -->
 
 </div>
 
