@@ -44,10 +44,10 @@ defmodule Envar.MixProject do
   defp package() do
     [
       files: ~w(lib LICENSE mix.exs README.md),
-      name: "useful",
+      name: "envar",
       licenses: ["GNU GPL v2.0"],
       maintainers: ["dwyl"],
-      links: %{"GitHub" => "https://github.com/dwyl/useful"}
+      links: %{"GitHub" => "https://github.com/dwyl/envar"}
     ]
   end
 
