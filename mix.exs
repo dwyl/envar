@@ -8,6 +8,7 @@ defmodule Envar.MixProject do
       version: "1.0.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps(),
       package: package(),
       test_coverage: [tool: ExCoveralls],
