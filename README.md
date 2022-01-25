@@ -12,7 +12,7 @@ A collection of functions for checking/getting/setting **environment variables**
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/envar/Elixir%20CI?label=build&style=flat-square)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/envar/main.svg?style=flat-square)](http://codecov.io/github/dwyl/envar?branch=main)
 [![Hex.pm](https://img.shields.io/hexpm/v/envar?color=brightgreen&style=flat-square)](https://hex.pm/packages/envar)
-[![Libraries.io dependency status](https://img.shields.io/librariesio/release/hex/envar?logoColor=brightgreen&style=flat-square)](https://libraries.io/hex/envar)
+[![Dependencies: None](https://img.shields.io/badge/dependencies-none-brightgreen.svg?style=flat-square)](https://libraries.io/hex/envar "Zero Dependencies")
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/envar/issues)
 [![HitCount](http://hits.dwyl.com/dwyl/envar.svg)](http://hits.dwyl.com/dwyl/envar)
 
@@ -27,6 +27,9 @@ and improving the developer experience when they are not.
 
 **`envar`** is our solution to a very specific problem:
 the developer experience when a required environment variable is undefined. 
+
+
+<br />
 
 
 ## How?
@@ -46,8 +49,23 @@ end
 
 ## Usage
 
+In your code, when you need to retrieve an environment variable,
+use the following:
 
-For more detail, please see docs:
+```elixir
+DATABASE_URL = Envar.get("DATABASE_URL")
+```
+
+Or if you need to check that a variable is set, use:
+
+```elixir
+if Envar.is_set?("Heroku") do
+  # do stuff on Heroku
+end
+```
+
+For more detail, please see docs: 
+https://hexdocs.pm/envar/api-reference.html
 
 <br />
 
@@ -55,10 +73,13 @@ For more detail, please see docs:
 
 We created this module after doing
 a search of the `Elixir` (Hex.pm)
-ecosystem, see:
+ecosystem, <br />
+see:
 [dwyl/learn-environment-variables/issues/18](https://github.com/dwyl/learn-environment-variables/issues/18)
 
 There are several modules available,
-we wanted something very basic/specific to our needs.
+we wanted something very basic/specific to our needs. <br />
 We don't expect anyone else to use this;
 it's Open Source 
+because that's just what we do: <br />
+[/manifesto.md#open-source-always](https://github.com/dwyl/start-here/blob/master/manifesto.md#open-source-always)

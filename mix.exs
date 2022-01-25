@@ -5,7 +5,7 @@ defmodule Envar.MixProject do
     [
       app: :envar,
       description: "Warn when required Environment Variable is not set",
-      version: "1.0.0",
+      version: "1.0.1",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
