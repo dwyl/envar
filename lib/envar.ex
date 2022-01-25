@@ -96,4 +96,38 @@ defmodule Envar do
   def set(varname, value) do
     System.put_env(varname, value)
   end
+
+  @doc """
+  `load/1` load a file containing a line-separated list 
+  of environment variables e.g: `.env`
+  Set the `value` of each environment variable.
+
+  ## Examples
+      iex> Envar.load(".env")
+      :ok
+
+  """
+  @spec load(binary) :: :ok
+  def load(filename) do
+    # Logger.debug("File.cwd!() #{File.cwd!()}")
+    path = File.cwd!() <> "/" <> filename
+    Logger.debug(".env file path: #{path}")
+
+    {:ok, data} = File.read(path)
+
+    data
+    |> String.trim()
+    |> String.split("\n")
+    |> Enum.each(fn line ->
+      line = String.trim(line)
+
+      with line <- String.replace(line, ["export ", "'"], ""),
+           [key | rest] <- String.split(line, "="),
+           value <- Enum.join(rest, "=") do
+        System.put_env(key, value)
+      end
+    end)
+
+    :ok
+  end
 end

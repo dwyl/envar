@@ -23,4 +23,12 @@ defmodule EnvarTest do
     assert Envar.set("HELLO", "world") == :ok
     assert Envar.get("HELLO") == "world"
   end
+
+  test "Envar.load(\".env\") loads the .env file" do
+    assert Envar.load(".env") == :ok
+    assert Envar.get("EVERYTHING") == "awesome!"
+    assert Envar.get("ADMIN_EMAIL") == "alex@gmail.com"
+    # comments and empty lines are ignored in the .env file ✅ 
+    assert Envar.get("SECRET") == "master plan"
+  end
 end

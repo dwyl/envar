@@ -49,14 +49,31 @@ end
 
 ## Usage
 
-In your code, when you need to retrieve an environment variable,
+Load an `.env` file 
+containing a line-separated list of environment variables 
+on your `localhost`:
+
+```elixir
+Envar.load(".env")
+```
+
+That will locate the `.env` file in your project 
+and set each environment variable in it.
+
+<br />
+
+
+When you need to retrieve a specific environment variable,
 use the following:
 
 ```elixir
 DATABASE_URL = Envar.get("DATABASE_URL")
 ```
 
-Or if you need to check that a variable is set, use:
+<br />
+
+If you need to check that a variable is set, 
+use `is_set?/1`
 
 ```elixir
 if Envar.is_set?("Heroku") do
@@ -64,8 +81,8 @@ if Envar.is_set?("Heroku") do
 end
 ```
 
-Want to check if _any_ of the variables in a `List` are set?
-Invoke `Envar.is_set_any?/1`:
+To check if _any_ of the variables in a `List` are set,
+invoke `Envar.is_set_any?/1`:
 
 ```elixir
 if Envar.is_set_any?(["HEROKU", "FLYIO"]) do
