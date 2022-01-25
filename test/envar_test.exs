@@ -14,4 +14,8 @@ defmodule EnvarTest do
   test "Envar.is_set? UNSET returns false" do
     assert Envar.is_set?("UNSET") == false
   end
+
+  test "Envar.is_set_any?([\"HEROKU\", \"GITHUB\"]) returns false" do
+    assert Envar.is_set_any?(["HEROKU", "GITHUB"]) == false
+  end
 end

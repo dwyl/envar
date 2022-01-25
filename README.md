@@ -42,7 +42,7 @@ by adding `envar` to your list of dependencies in your `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:envar, "~> 1.0.1"}
+    {:envar, "~> 1.0.2"}
   ]
 end
 ```
@@ -64,8 +64,18 @@ if Envar.is_set?("Heroku") do
 end
 ```
 
+Want to check if _any_ of the variables in a `List` are set?
+Invoke `Envar.is_set_any?/1`:
+
+```elixir
+if Envar.is_set_any?(["HEROKU", "FLYIO"]) do
+  # Do something on non-prod environment
+end
+```
+
+
 For more detail, please see docs: 
-https://hexdocs.pm/envar/api-reference.html
+https://hexdocs.pm/envar/Envar.html#functions
 
 <br />
 
