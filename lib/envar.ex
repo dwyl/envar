@@ -82,4 +82,18 @@ defmodule Envar do
   def is_set_any?(list) do
     Enum.any?(list, fn var -> is_set?(var) end)
   end
+
+  @doc """
+  `set/2` set the `value` of an environment variable `varname`.
+  Accepts two `String` parameters: `varname` and `value`.
+
+  ## Examples
+      iex> Envar.set("API_KEY", "YourSuperLongAPIKey")
+      :ok
+
+  """
+  @spec set(binary, binary) :: :ok
+  def set(varname, value) do
+    System.put_env(varname, value)
+  end
 end

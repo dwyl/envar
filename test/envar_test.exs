@@ -18,4 +18,9 @@ defmodule EnvarTest do
   test "Envar.is_set_any?([\"HEROKU\", \"GITHUB\"]) returns false" do
     assert Envar.is_set_any?(["HEROKU", "GITHUB"]) == false
   end
+
+  test "Envar.set(\"HELLO\", \"world\") sets the HELLO variable" do
+    assert Envar.set("HELLO", "world") == :ok
+    assert Envar.get("HELLO") == "world"
+  end
 end
