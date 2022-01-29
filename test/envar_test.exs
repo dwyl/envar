@@ -15,8 +15,26 @@ defmodule EnvarTest do
     assert Envar.is_set?("UNSET") == false
   end
 
+  test "Envar.is_set_all?(~w/EVERYTHING NOTHING/) returns false" do
+    Envar.set("EVERYTHING", "AWESOME!")
+    assert Envar.is_set_any?(~w/EVERYTHING NOTHING/) == true
+  end
+
+  test "Envar.is_set_all?(~w/EVERYTHING NOTHING/) returns true" do
+    Envar.set("EVERYTHING", "AWESOME!")
+    System.put_env("HELLO", "world")
+    assert Envar.is_set_any?(~w/EVERYTHING HELLO/) == true
+  end
+
   test "Envar.is_set_any?([\"HEROKU\", \"GITHUB\"]) returns false" do
     assert Envar.is_set_any?(["HEROKU", "GITHUB"]) == false
+    assert Envar.set("EVERYTHING", "AWESOME!")
+    assert Envar.is_set_any?(~w/EVERYTHING NOTHING/) == true
+  end
+
+  test "Envar.is_set_any?(~w/EVERYTHING NOTHING/) returns true" do
+    Envar.set("EVERYTHING", "AWESOME!")
+    assert Envar.is_set_any?(~w/EVERYTHING NOTHING/) == true
   end
 
   test "Envar.set(\"HELLO\", \"world\") sets the HELLO variable" do
@@ -28,7 +46,7 @@ defmodule EnvarTest do
     assert Envar.load(".env") == :ok
     assert Envar.get("EVERYTHING") == "awesome!"
     assert Envar.get("ADMIN_EMAIL") == "alex@gmail.com"
-    # comments and empty lines are ignored in the .env file ✅ 
+    # comments and empty lines are ignored in the .env file ✅
     assert Envar.get("SECRET") == "master plan"
   end
 end

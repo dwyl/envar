@@ -10,7 +10,7 @@ defmodule Envar do
   require Logger
 
   @doc """
-  `get/1` gets an environment variable by name 
+  `get/1` gets an environment variable by name
   e.g: `Envar.get("DATABASE_URL")`
   Either returns the `String` value of the environment variable,
   or `nil` if the value is not set.
@@ -36,7 +36,7 @@ defmodule Envar do
   end
 
   @doc """
-  `is_set/1` binary check that an environment variable is defined by name 
+  `is_set/1` binary check that an environment variable is defined by name
   e.g: `Envar.is_set?("HEROKU")` will return `false`
   if the `HEROKU` environment variable is not set.
   When a particular variable is set, it will return `true`.
@@ -61,11 +61,35 @@ defmodule Envar do
   end
 
   @doc """
-  `is_set_any/1` binary check that any 
-  environment variable in a `List` is defined.
-  e.g: `Envar.is_set?(["HEROKU", "FLYIO"])` will return `false`
+  `is_set_all/1` binary check that ***ALL***
+  environment variable in a `List` are defined.
+  e.g: `Envar.is_set_all?(~w/HEROKU FLYIO/)` will return `false`
   if _both_ the `HEROKU` and `FLYIO` environment variables are _not_ set.
-  When any of the environment variables in the list are set, 
+  When _all_ of the environment variables in the list are set,
+  it will return `true`.
+  It's the equivalent of writing:
+  `Envar.is_set?("HEROKU") && Envar.is_set?("FLYIO")`.
+
+  ## Examples
+      iex> Envar.is_set_all?(["HEROKU", "AWS"])
+      false
+
+      iex> Envar.set("HELLO", "world")
+      iex> Envar.set("GOODBYE", "au revoir")
+      iex> Envar.is_set_all?(["HELLO",  "GOODBYE"])
+      true
+
+  """
+  def is_set_all?(list) do
+    Enum.all?(list, fn var -> is_set?(var) end)
+  end
+
+  @doc """
+  `is_set_any/1` binary check that any
+  environment variable in a `List` is defined.
+  e.g: `Envar.is_set_any?(["HEROKU", "FLYIO"])` will return `false`
+  if _both_ the `HEROKU` and `FLYIO` environment variables are _not_ set.
+  When any of the environment variables in the list are set,
   it will return `true`.
   It's the equivalent of writing:
   `Envar.is_set?("HEROKU") || Envar.is_set?("FLYIO")`.
@@ -98,7 +122,7 @@ defmodule Envar do
   end
 
   @doc """
-  `load/1` load a file containing a line-separated list 
+  `load/1` load a file containing a line-separated list
   of environment variables e.g: `.env`
   Set the `value` of each environment variable.
 

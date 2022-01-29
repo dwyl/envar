@@ -2,7 +2,7 @@
 <div align="center">
 
 
-<img src="https://user-images.githubusercontent.com/194400/151025711-574482bb-918d-499f-b7cd-32bf224403c8.png" 
+<img src="https://user-images.githubusercontent.com/194400/151025711-574482bb-918d-499f-b7cd-32bf224403c8.png"
 alt="envar rainbow logo">
 
 A collection of functions for checking/getting/setting **environment variables** in **`Elixir`**.
@@ -21,12 +21,12 @@ A collection of functions for checking/getting/setting **environment variables**
 
 ## Why?
 
-We needed a way of checking that environment variables were defined 
+We needed a way of checking that environment variables were defined
 and improving the developer experience when they are not.
 ## What?
 
 **`envar`** is our solution to a very specific problem:
-the developer experience when a required environment variable is undefined. 
+the developer experience when a required environment variable is undefined.
 
 
 <br />
@@ -42,22 +42,22 @@ by adding `envar` to your list of dependencies in your `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:envar, "~> 1.0.3"}
+    {:envar, "~> 1.0.4"}
   ]
 end
 ```
 
 ## Usage
 
-Load an `.env` file 
-containing a line-separated list of environment variables 
+Load an `.env` file
+containing a line-separated list of environment variables
 on your `localhost`:
 
 ```elixir
 Envar.load(".env")
 ```
 
-That will locate the `.env` file in your project 
+That will locate the `.env` file in your project
 and set each environment variable in it.
 
 <br />
@@ -72,7 +72,7 @@ DATABASE_URL = Envar.get("DATABASE_URL")
 
 <br />
 
-If you need to check that a variable is set, 
+If you need to check that a variable is set,
 use `is_set?/1`
 
 ```elixir
@@ -85,13 +85,21 @@ To check if _any_ of the variables in a `List` are set,
 invoke `Envar.is_set_any?/1`:
 
 ```elixir
-if Envar.is_set_any?(["HEROKU", "FLYIO"]) do
+if Envar.is_set_any?(~w/HEROKU FLYIO/) do
   # Do something on non-prod environment
 end
 ```
 
+Conversely, to confirm that _all_ the environment variables
+in a list are set, invoke `Envar.is_set_all?/1`:
 
-For more detail, please see docs: 
+```elixir
+if Envar.is_set_all?(~w/ADMIN_EMAIL AUTH_API_KEY/) do
+  # Do something with the required environment variables
+end
+```
+
+For more detail, please see docs:
 https://hexdocs.pm/envar/Envar.html#functions
 
 <br />
@@ -107,6 +115,6 @@ see:
 There are several modules available,
 we wanted something very basic/specific to our needs. <br />
 We don't expect anyone else to use this;
-it's Open Source 
+it's Open Source
 because that's just what we do: <br />
 [/manifesto.md#open-source-always](https://github.com/dwyl/start-here/blob/master/manifesto.md#open-source-always)
