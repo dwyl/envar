@@ -5,7 +5,7 @@ defmodule Envar.MixProject do
     [
       app: :envar,
       description: "Helful functions for working with Environment Variables",
-      version: "1.0.4",
+      version: "1.0.5",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -37,6 +37,9 @@ defmodule Envar.MixProject do
 
       # Create Documentation Hex.docs: https://hex.pm/packages/ex_doc
       {:ex_doc, "~> 0.22.6", only: :dev},
+
+      # Keep Code Tidy: https://github.com/rrrene/credo
+      {:credo, "~> 1.6.2", only: [:dev, :test], runtime: false},
     ]
   end
 

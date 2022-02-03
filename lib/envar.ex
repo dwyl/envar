@@ -24,13 +24,13 @@ defmodule Envar do
       "world"
 
   """
+  @spec get(binary) :: binary | nil
   def get(varname) do
     case System.get_env(varname) do
       nil ->
         Logger.error("ERROR: #{varname} Environment Variable is not set")
         nil
       val ->
-        # IO.inspect(val, label: "val")
         val
     end
   end
@@ -50,6 +50,7 @@ defmodule Envar do
       true
 
   """
+  @spec is_set?(binary) :: boolean
   def is_set?(varname) do
     case System.get_env(varname) do
       nil ->
@@ -80,6 +81,7 @@ defmodule Envar do
       true
 
   """
+  @spec is_set_all?(list) :: boolean
   def is_set_all?(list) do
     Enum.all?(list, fn var -> is_set?(var) end)
   end
@@ -103,6 +105,7 @@ defmodule Envar do
       true
 
   """
+  @spec is_set_any?(list) :: boolean
   def is_set_any?(list) do
     Enum.any?(list, fn var -> is_set?(var) end)
   end
@@ -133,7 +136,38 @@ defmodule Envar do
   """
   @spec load(binary) :: :ok
   def load(filename) do
-    # Logger.debug("File.cwd!() #{File.cwd!()}")
+    read(filename) |> Enum.each(fn {k, v} -> set(k, v) end)
+
+    :ok
+  end
+
+  @spec keys(binary) :: list
+  def keys(filename) do
+    read(filename) |> Map.keys
+  end
+
+  @spec values(binary) :: list
+  def values(filename) do
+    read(filename) |> Map.values
+  end
+
+  @doc """
+  `read/1` reads a file containing a line-separated list
+  of environment variables e.g: `.env`
+  Returns a Map in the form %{ KEY: value, MYVAR: value2 }
+
+  ## Examples
+      iex> Envar.read(".env")
+      %{
+        "ADMIN_EMAIL" => "alex@gmail.com",
+        "EVERYTHING" => "awesome!",
+        "SECRET" => "master plan"
+      }
+
+  """
+  @spec read(binary) :: map
+  def read(filename) do
+
     path = File.cwd!() <> "/" <> filename
     Logger.debug(".env file path: #{path}")
 
@@ -142,16 +176,19 @@ defmodule Envar do
     data
     |> String.trim()
     |> String.split("\n")
-    |> Enum.each(fn line ->
+    |> Enum.reduce(%{}, fn line, acc ->
       line = String.trim(line)
 
       with line <- String.replace(line, ["export ", "'"], ""),
            [key | rest] <- String.split(line, "="),
            value <- Enum.join(rest, "=") do
-        System.put_env(key, value)
+        
+        if String.length(value) > 0 do
+          Map.put(acc, key, value)
+        else
+          acc
+        end
       end
     end)
-
-    :ok
   end
 end

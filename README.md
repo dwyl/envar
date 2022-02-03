@@ -99,10 +99,48 @@ if Envar.is_set_all?(~w/ADMIN_EMAIL AUTH_API_KEY/) do
 end
 ```
 
+We needed a couple more convenience functions, 
+so we wrote them!
+
+If you need to read an `.env` file and get the 
+keys & values as a `Map`, invoke `Envar.read/1`:
+
+```elixir
+iex> Envar.read(".env")
+%{
+  "ADMIN_EMAIL" => "alex@gmail.com",
+  "EVERYTHING" => "awesome!",
+  "SECRET" => "master plan"
+}
+```
+
+If you need just the `keys` 
+of the list of environment variables in an `.env` file,
+invoke: `Envar.keys/1`:
+
+```elixir
+iex> Envar.keys(".env")
+["ADMIN_EMAIL", "EVERYTHING", "SECRET"]
+```
+
+And if you need just the `values` 
+of the environment variables in an `.env` file,
+invoke: `Envar.values/1`:
+
+```elixir
+iex> Envar.values(".env")
+["alex@gmail.com", "awesome!", "master plan"]
+```
+
+
 For more detail, please see docs:
 https://hexdocs.pm/envar/Envar.html#functions
 
-<br />
+<br /><br />
+
+Happy `Elixir` Coding! 🚀 
+
+<br /><br />
 
 ## Context
 
