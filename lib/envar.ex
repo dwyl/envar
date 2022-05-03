@@ -17,20 +17,28 @@ defmodule Envar do
   When the environment variable is not defined,
   this will be logged for debugging purposes.
 
+  An optional default parameter may be provided to return
+  value if environment variable is not set.
+
   ## Examples
 
       iex> System.put_env("HELLO", "world")
       iex> Envar.get("HELLO")
       "world"
 
+      iex> Envar.get("FOO", "bar")
+      "bar"
+
   """
-  @spec get(binary) :: binary | nil
-  def get(varname) do
-    case System.get_env(varname) do
-      nil ->
+  @spec get(binary, binary) :: binary | nil
+  def get(varname, default \\ nil) do
+    case {System.get_env(varname), default} do
+      {nil, nil} ->
         Logger.error("ERROR: #{varname} Environment Variable is not set")
         nil
-      val ->
+      {val, nil} ->
+        val
+      {nil, val} ->
         val
     end
   end
@@ -182,7 +190,7 @@ defmodule Envar do
       with line <- String.replace(line, ["export ", "'"], ""),
            [key | rest] <- String.split(line, "="),
            value <- Enum.join(rest, "=") do
-        
+
         if String.length(value) > 0 do
           Map.put(acc, key, value)
         else

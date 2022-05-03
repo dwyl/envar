@@ -11,6 +11,10 @@ defmodule EnvarTest do
     assert Envar.get("UNSET") == nil
   end
 
+  test "Envar.get/1 FOO returns \"bar\"" do
+    assert Envar.get("FOO", "bar") == "bar"
+  end
+
   test "Envar.is_set? UNSET returns false" do
     assert Envar.is_set?("UNSET") == false
   end
@@ -63,7 +67,7 @@ defmodule EnvarTest do
   end
 
   test "Envar.values(\".env\") reads the .env file the list of values" do
-    assert Envar.values(".env") == 
+    assert Envar.values(".env") ==
       ["alex@gmail.com", "awesome!", "master plan"]
   end
 end
