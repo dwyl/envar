@@ -36,7 +36,7 @@ defmodule Envar.MixProject do
       {:excoveralls, "~> 0.13.2", only: [:test, :dev]},
 
       # Create Documentation Hex.docs: https://hex.pm/packages/ex_doc
-      {:ex_doc, "~> 0.22.6", only: :dev},
+      {:ex_doc, "~> 0.28.4", only: :dev},
 
       # Keep Code Tidy: https://github.com/rrrene/credo
       {:credo, "~> 1.6.2", only: [:dev, :test], runtime: false},
