@@ -10,15 +10,10 @@ defmodule Envar do
   require Logger
 
   @doc """
-  `get/1` gets an environment variable by name
-  e.g: `Envar.get("DATABASE_URL")`
-  Either returns the `String` value of the environment variable,
-  or `nil` if the value is not set.
-  When the environment variable is not defined,
-  this will be logged for debugging purposes.
-
-  An optional default parameter may be provided to return
-  value if environment variable is not set.
+  `get/2` gets an environment variable by name
+  with an _optional_ second argument `default_value` 
+  which, as it's name suggests, defines the default value 
+  for the evironment variable if it is not set.
 
   ## Examples
 
@@ -28,17 +23,19 @@ defmodule Envar do
 
       iex> Envar.get("FOO", "bar")
       "bar"
-
-  """
+  """  
   @spec get(binary, binary) :: binary | nil
   def get(varname, default \\ nil) do
-    case {System.get_env(varname), default} do
-      {nil, nil} ->
-        Logger.error("ERROR: #{varname} Environment Variable is not set")
-        nil
-      {val, nil} ->
-        val
-      {nil, val} ->
+    case System.get_env(varname) do
+      nil ->
+        case is_nil(default) do
+          true -> 
+            Logger.error("ERROR: #{varname} Environment Variable is not set")
+            nil
+          false ->
+            default
+        end
+      val ->
         val
     end
   end

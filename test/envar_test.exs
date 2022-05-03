@@ -7,11 +7,11 @@ defmodule EnvarTest do
     assert Envar.get("HELLO") == "world"
   end
 
-  test "Envar.get/1 UNSET returns nil" do
+  test "Envar.get/2 UNSET returns nil" do
     assert Envar.get("UNSET") == nil
   end
 
-  test "Envar.get/1 FOO returns \"bar\"" do
+  test "Envar.get/2 FOO returns \"bar\" (default value)" do
     assert Envar.get("FOO", "bar") == "bar"
   end
 
