@@ -23,18 +23,20 @@ defmodule Envar do
 
       iex> Envar.get("FOO", "bar")
       "bar"
-  """  
-  @spec get(binary, binary) :: binary | nil
+  """
+  @spec get(binary, binary | nil) :: binary | nil
   def get(varname, default \\ nil) do
     case System.get_env(varname) do
       nil ->
         case is_nil(default) do
-          true -> 
+          true ->
             Logger.error("ERROR: #{varname} Environment Variable is not set")
             nil
+
           false ->
             default
         end
+
       val ->
         val
     end
@@ -61,6 +63,7 @@ defmodule Envar do
       nil ->
         Logger.debug("#{varname} Environment Variable is not set")
         false
+
       _ ->
         true
     end
@@ -148,12 +151,12 @@ defmodule Envar do
 
   @spec keys(binary) :: list
   def keys(filename) do
-    read(filename) |> Map.keys
+    read(filename) |> Map.keys()
   end
 
   @spec values(binary) :: list
   def values(filename) do
-    read(filename) |> Map.values
+    read(filename) |> Map.values()
   end
 
   @doc """
@@ -172,7 +175,6 @@ defmodule Envar do
   """
   @spec read(binary) :: map
   def read(filename) do
-
     path = File.cwd!() <> "/" <> filename
     Logger.debug(".env file path: #{path}")
 
@@ -187,7 +189,6 @@ defmodule Envar do
       with line <- String.replace(line, ["export ", "'"], ""),
            [key | rest] <- String.split(line, "="),
            value <- Enum.join(rest, "=") do
-
         if String.length(value) > 0 do
           Map.put(acc, key, value)
         else
