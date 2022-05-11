@@ -5,7 +5,7 @@ defmodule Envar.MixProject do
     [
       app: :envar,
       description: "Helful functions for working with Environment Variables",
-      version: "1.0.6",
+      version: "1.0.7",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -40,6 +40,7 @@ defmodule Envar.MixProject do
 
       # Keep Code Tidy: https://github.com/rrrene/credo
       {:credo, "~> 1.6.2", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1"}
     ]
   end
 
