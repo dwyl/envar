@@ -1,6 +1,4 @@
-
 <div align="center">
-
 
 <img src="https://user-images.githubusercontent.com/194400/151025711-574482bb-918d-499f-b7cd-32bf224403c8.png"
 alt="envar rainbow logo">
@@ -16,21 +14,19 @@ A collection of functions for checking/getting/setting **environment variables**
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/envar/issues)
 [![HitCount](http://hits.dwyl.com/dwyl/envar.svg)](http://hits.dwyl.com/dwyl/envar)
 
-
 </div><br />
 
 ## Why?
 
 We needed a way of checking that environment variables were defined
 and improving the developer experience when they are not.
+
 ## What?
 
 **`envar`** is our solution to a very specific problem:
 the developer experience when a required environment variable is undefined.
 
-
 <br />
-
 
 ## How?
 
@@ -42,7 +38,7 @@ by adding `envar` to your list of dependencies in your `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:envar, "~> 1.0.6"}
+    {:envar, "~> 1.0.7"}
   ]
 end
 ```
@@ -62,12 +58,21 @@ and set each environment variable in it.
 
 <br />
 
-
 When you need to retrieve a specific environment variable,
 use the following:
 
 ```elixir
 DATABASE_URL = Envar.get("DATABASE_URL")
+```
+
+<br />
+
+If you want to define a default/fallback value
+for the environment variable when it's not set,
+simply add it as the second argument:
+
+```elixir
+DATABASE_URL = Envar.get("DATABASE_URL", "postgres://uname:pass@host:5432/dbname"")
 ```
 
 <br />
@@ -99,10 +104,10 @@ if Envar.is_set_all?(~w/ADMIN_EMAIL AUTH_API_KEY/) do
 end
 ```
 
-We needed a couple more convenience functions, 
+We needed a couple more convenience functions,
 so we wrote them!
 
-If you need to read an `.env` file and get the 
+If you need to read an `.env` file and get the
 keys & values as a `Map`, invoke `Envar.read/1`:
 
 ```elixir
@@ -114,7 +119,7 @@ iex> Envar.read(".env")
 }
 ```
 
-If you need just the `keys` 
+If you need just the `keys`
 of the list of environment variables in an `.env` file,
 invoke: `Envar.keys/1`:
 
@@ -123,7 +128,7 @@ iex> Envar.keys(".env")
 ["ADMIN_EMAIL", "EVERYTHING", "SECRET"]
 ```
 
-And if you need just the `values` 
+And if you need just the `values`
 of the environment variables in an `.env` file,
 invoke: `Envar.values/1`:
 
@@ -132,13 +137,12 @@ iex> Envar.values(".env")
 ["alex@gmail.com", "awesome!", "master plan"]
 ```
 
-
 For more detail, please see docs:
 https://hexdocs.pm/envar/Envar.html#functions
 
 <br /><br />
 
-Happy `Elixir` Coding! 🚀 
+Happy `Elixir` Coding! 🚀
 
 <br /><br />
 
