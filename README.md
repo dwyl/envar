@@ -38,7 +38,7 @@ by adding `envar` to your list of dependencies in your `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:envar, "~> 1.0.7"}
+    {:envar, "~> 1.0.8"}
   ]
 end
 ```

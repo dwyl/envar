@@ -5,7 +5,7 @@ defmodule Envar.MixProject do
     [
       app: :envar,
       description: "Helful functions for working with Environment Variables",
-      version: "1.0.7",
+      version: "1.0.8",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
