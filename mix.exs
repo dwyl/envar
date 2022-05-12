@@ -40,7 +40,9 @@ defmodule Envar.MixProject do
 
       # Keep Code Tidy: https://github.com/rrrene/credo
       {:credo, "~> 1.6.2", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.1"}
+
+      # https://github.com/jeremyjh/dialyxir
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
     ]
   end
 
