@@ -42,7 +42,7 @@ defmodule Envar.MixProject do
       {:credo, "~> 1.6.2", only: [:dev, :test], runtime: false},
 
       # https://github.com/jeremyjh/dialyxir
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
     ]
   end
 
