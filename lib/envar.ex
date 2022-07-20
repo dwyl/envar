@@ -26,20 +26,13 @@ defmodule Envar do
   """
   @spec get(binary, binary | nil) :: binary | nil
   def get(varname, default \\ nil) do
-    case System.get_env(varname) do
-      nil ->
-        case is_nil(default) do
-          true ->
-            Logger.error("ERROR: #{varname} Environment Variable is not set")
-            nil
+    val = System.get_env(varname, default)
 
-          false ->
-            default
-        end
-
-      val ->
-        val
+    if is_nil(val) do
+      Logger.error("ERROR: #{varname} Environment Variable is not set")
     end
+
+    val
   end
 
   @doc """
@@ -175,10 +168,11 @@ defmodule Envar do
   """
   @spec read(binary) :: map
   def read(filename) do
-    path = File.cwd!() <> "/" <> filename
+    path = Path.join(File.cwd!(), filename)
+
     Logger.debug(".env file path: #{path}")
 
-    {:ok, data} = File.read(path)
+    data = File.read!(path)
 
     data
     |> String.trim()
