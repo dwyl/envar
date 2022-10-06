@@ -33,7 +33,7 @@ defmodule Envar.MixProject do
   defp deps do
     [
       # track test coverage: https://github.com/parroty/excoveralls
-      {:excoveralls, "~> 0.14.4", only: [:test, :dev]},
+      {:excoveralls, "~> 0.15.0", only: [:test, :dev]},
 
       # Create Documentation Hex.docs: https://hex.pm/packages/ex_doc
       {:ex_doc, "~> 0.28.4", only: :dev},
