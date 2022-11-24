@@ -38,7 +38,7 @@ by adding `envar` to your list of dependencies in your `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:envar, "~> 1.0.8"}
+    {:envar, "~> 1.1.0"}
   ]
 end
 ```
@@ -55,6 +55,21 @@ Envar.load(".env")
 
 That will locate the `.env` file in your project
 and set each environment variable in it.
+
+If the `.env` _must_ exist e.g. in a `:test` context,
+invoke:
+
+```elixir
+Envar.require_env_file(".env")
+```
+
+That will log an `Error` if the file does not exist (or can't be found):
+
+```sh
+09:10:54.103 [error] Required .env file does not exist at path: /Alex/awesome/project/.env
+```
+
+
 
 <br />
 

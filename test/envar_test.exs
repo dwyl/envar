@@ -70,4 +70,13 @@ defmodule EnvarTest do
     assert Envar.values(".env") ==
       ["alex@gmail.com", "awesome!", "master plan"]
   end
+
+  test "Envar.require_env_file(\".env\") loads the .env file" do
+    assert Envar.require_env_file(".env") == :ok
+    assert Envar.get("EVERYTHING") == "awesome!"
+  end
+
+  test "Envar.require_env_file(\".env_non_existent\") logs an error!" do
+    assert Envar.require_env_file(".env_non_existent") == :error
+  end
 end
