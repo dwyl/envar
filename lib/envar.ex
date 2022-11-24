@@ -160,12 +160,12 @@ defmodule Envar do
   def require_env_file(filename) do
     # check if the file exists:
     path = Path.join(File.cwd!(), filename)
-    case File.exists?(path) do
-      true ->
-        load(filename)
-      false ->
-        Logger.error("Required .env file does not exist at path: #{path}")
-        :error
+
+    if File.exists?(path) do
+      load(filename)
+    else
+      Logger.error("Required .env file does not exist at path: #{path}")
+      :error
     end
   end
 
