@@ -159,7 +159,8 @@ defmodule Envar do
   @spec require_env_file(binary) :: :ok | :error
   def require_env_file(filename) do
     # check if the file exists:
-    path = Path.join(File.cwd!(), filename)
+    {:ok, cwd} = File.cwd()
+    path = Path.join(cwd, filename)
 
     if File.exists?(path) do
       load(filename)
