@@ -74,9 +74,6 @@ defmodule EnvarTest do
   test "Envar.require_env_file(\".env\") loads the .env file" do
     assert Envar.require_env_file(".env") == :ok
     assert Envar.get("EVERYTHING") == "awesome!"
-    assert Envar.get("ADMIN_EMAIL") == "alex@gmail.com"
-    # comments and empty lines are ignored in the .env file ✅
-    assert Envar.get("SECRET") == "master plan"
   end
 
   test "Envar.require_env_file(\".env_non_existent\") logs an error!" do
