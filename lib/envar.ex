@@ -156,7 +156,7 @@ defmodule Envar do
       :error
 
   """
-  @spec require_env_file(binary) :: :ok
+  @spec require_env_file(binary) :: :ok | :error
   def require_env_file(filename) do
     # check if the file exists:
     path = Path.join(File.cwd!(), filename)
