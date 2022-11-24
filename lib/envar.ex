@@ -11,8 +11,8 @@ defmodule Envar do
 
   @doc """
   `get/2` gets an environment variable by name
-  with an _optional_ second argument `default_value` 
-  which, as it's name suggests, defines the default value 
+  with an _optional_ second argument `default_value`
+  which, as it's name suggests, defines the default value
   for the evironment variable if it is not set.
 
   ## Examples
@@ -141,6 +141,34 @@ defmodule Envar do
 
     :ok
   end
+
+  @doc """
+  `require_env_file/1` load a file containing a line-separated list
+  of environment variables e.g: `.env`
+  Set the `value` of each environment variable.
+  Log an Error if the file is not available
+
+  ## Examples
+      iex> Envar.require_env_file(".env")
+      :ok
+
+      iex> Envar.require_env_file(".env_not_there")
+      :error
+
+  """
+  @spec require_env_file(binary) :: :ok
+  def require_env_file(filename) do
+    # check if the file exists:
+    path = Path.join(File.cwd!(), filename)
+    case File.exists?(path) do
+      true ->
+        load(filename)
+      false ->
+        Logger.error("Required .env file does not exist at path: #{path}")
+        :error
+    end
+  end
+
 
   @spec keys(binary) :: list
   def keys(filename) do
