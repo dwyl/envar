@@ -7,7 +7,7 @@ A collection of functions for checking/getting/setting **environment variables**
 
 <!-- Better LOGO #HelpWanted -->
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/envar/Elixir%20CI?label=build&style=flat-square)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dwyl/envar/ci.yml?label=build&style=flat-square&branch=main)](https://github.com/dwyl/envar/actions)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/envar/main.svg?style=flat-square)](https://codecov.io/github/dwyl/envar?branch=main)
 [![Hex.pm](https://img.shields.io/hexpm/v/envar?color=brightgreen&style=flat-square)](https://hex.pm/packages/envar)
 [![Dependencies: None](https://img.shields.io/badge/dependencies-none-brightgreen.svg?style=flat-square)](https://libraries.io/hex/envar "Zero Dependencies")
