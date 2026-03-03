@@ -7,8 +7,6 @@ defmodule Envar do
 
   """
 
-  require Logger
-
   @doc """
   `get/2` gets an environment variable by name
   with an _optional_ second argument `default_value`
@@ -26,13 +24,7 @@ defmodule Envar do
   """
   @spec get(binary, binary | nil) :: binary | nil
   def get(varname, default \\ nil) do
-    val = System.get_env(varname, default)
-
-    if is_nil(val) do
-      Logger.error("ERROR: #{varname} Environment Variable is not set")
-    end
-
-    val
+    System.get_env(varname, default)
   end
 
   @doc """
@@ -54,7 +46,6 @@ defmodule Envar do
   def is_set?(varname) do
     case System.get_env(varname) do
       nil ->
-        Logger.debug("#{varname} Environment Variable is not set")
         false
 
       _ ->
@@ -165,7 +156,6 @@ defmodule Envar do
     if File.exists?(path) do
       load(filename)
     else
-      Logger.error("Required .env file does not exist at path: #{path}")
       :error
     end
   end
@@ -196,22 +186,18 @@ defmodule Envar do
 
   """
   @spec read(binary) :: map
-  def read(filename) do
-    path = Path.join(File.cwd!(), filename)
-
-    Logger.debug(".env file path: #{path}")
-
+  def read(path) do
     data = File.read!(path)
 
     data
     |> String.trim()
     |> String.split("\n")
+    |> Enum.reject(& &1 == "")
     |> Enum.reduce(%{}, fn line, acc ->
       line = String.trim(line)
 
       with line <- String.replace(line, ["export ", "'"], ""),
-           [key | rest] <- String.split(line, "="),
-           value <- Enum.join(rest, "=") do
+           [key, value] <- :binary.split(line, "=") do
         if String.length(value) > 0 do
           Map.put(acc, key, value)
         else
